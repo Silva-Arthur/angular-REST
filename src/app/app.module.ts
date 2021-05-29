@@ -3,31 +3,39 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component'; /*Requisições ajax*/
+import { HomeComponent } from './home/home.component';
 import { RouterModule, Routes} from '@angular/router';
 import { ModuleWithProviders} from '@angular/compiler/src/core';
 
 import { LoginComponent } from './login/login.component';
-/* Declara as rotas de acesso*/
+import { HttpInterceptorModule } from './service/header-interceptor.service';
+import { UsuarioComponent } from './componentes/usuario/usuario/usuario.component';
+import { UsuarioAddComponent } from './componentes/usuario/usuario-add/usuario-add.component';
 export const appRouters: Routes = [
 {path: 'home', component: HomeComponent},
-{path: 'login', component: LoginComponent}
+{path: 'login', component: LoginComponent},
+{path: '', component: LoginComponent},
+{path: 'usuarioList', component: UsuarioComponent},
+{path: 'usuarioAdd', component: UsuarioAddComponent},
+{path: 'usuarioAdd/:id', component: UsuarioAddComponent}
 ];
 
-/* Lê as rotas de acesso*/
 export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    UsuarioComponent,
+    UsuarioAddComponent
   ],
-      imports: [
+    imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    routes // chama as rotas 
+    routes,
+    HttpInterceptorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
