@@ -1,6 +1,6 @@
 <h3 style="padding: 10px;">Tela de Usuario</h3>
 
-<form style="padding: 10px;">
+<form style="padding: 10px;" #formValidate="ngForm">
 
 	<div class="form-row">
 		<div class="form-group col-md-1">
@@ -13,7 +13,9 @@
 	<div class="form-row">
 		<div class="form-group col-md-12">
 			<label for="nome">Nome</label>
+			<span style="color: red; font-size: 23px;" *ngIf="nomeValidate.invalid"> *</span>
 			<input type="text" class="form-control" id="nome" name="nome"
+			#nomeValidate="ngModel"
 			[(ngModel)]="usuario.nome"
 			 required="true" autocomplete="false">
 		</div>
@@ -22,14 +24,18 @@
 	<div class="form-row">
 		<div class="form-group col-md-6">
 			<label for="login">Login</label>
+			<span style="color: red; font-size: 23px;" *ngIf="loginValidate.invalid"> *</span>
 			<input type="text" class="form-control" id="login" name="login"
+			#loginValidate="ngModel"
 			[(ngModel)]="usuario.login"
 			 required="true" autocomplete="false">
 		</div>
 		
 		<div class="form-group col-md-6">
 			<label for="senha">Senha</label>
+			<span style="color: red; font-size: 23px;" *ngIf="senhaValidate.invalid"> *</span>
 			<input type="password" class="form-control" id="senha" name="senha"
+			#senhaValidate="ngModel"
 			[(ngModel)]="usuario.senha"
 			 required="true" autocomplete="false">
 		</div>
@@ -38,7 +44,9 @@
 	<div class="form-row">
 		<div class="form-group col-md-3">
 			<label for="cpf">CPF</label>
+			<span style="color: red; font-size: 23px;" *ngIf="cpfValidate.invalid"> *</span>
 			<input type="text" class="form-control" id="cpf" name="cpf"
+			#cpfValidate="ngModel"
 			[(ngModel)]="usuario.cpf"
 			 required="true" autocomplete="false">
 		</div>
@@ -51,6 +59,7 @@
 			>Novo</button>
 
 			<button type="button" class="btn btn-primary" style="margin-left: 10px;"
+			[disabled]="formValidate.invalid"
 			(click)="salvarUsario()">Salvar</button>
 
 			<button type="button" class="btn btn-primary" style="margin-left: 10px;" 
