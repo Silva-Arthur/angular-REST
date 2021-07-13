@@ -31,7 +31,13 @@ export class HeaderInterceptorService implements HttpInterceptor {
 
       });
 
-      return next.handle(tokenRequest).pipe(catchError(this.processaError));
+      return next.handle(tokenRequest).pipe(
+        tap((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse && (event.status === 200 || event.status === 201)) {
+            console.info('Sucesso na operação');
+          }
+        }),
+        catchError(this.processaError));
     } else {
       return next.handle(req);
     }
