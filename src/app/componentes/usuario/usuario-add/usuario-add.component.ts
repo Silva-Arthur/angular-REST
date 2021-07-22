@@ -34,10 +34,20 @@ export class UsuarioAddComponent implements OnInit {
         this.novo();
       });
     } else {
-      /*Salvando novo usu�rio*/
+      /*Salvando novo usu�rio*/
       this.userService.salvarUsuario(this.usuario).subscribe(data => {
         console.info("Gravou usuario! " + data);
         this.novo();
+      });
+    }
+  }
+
+  deletarTelefone(id) {
+    if (id != null && confirm("Deseja remover?")) {
+      this.userService.removerTelefone(id).subscribe(data => {
+        const index = this.usuario.telefones.indexOf(id); /*identifica posição da lista do telefone removido*/
+        this.usuario.telefones.splice(index , 1); /*remove o telefone da lista*/
+        console.info("Telefone removido = " + data);
       });
     }
   }

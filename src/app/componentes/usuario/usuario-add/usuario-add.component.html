@@ -30,7 +30,7 @@
 			[(ngModel)]="usuario.login"
 			 required="true" autocomplete="false">
 		</div>
-		
+
 		<div class="form-group col-md-6">
 			<label for="senha">Senha</label>
 			<span style="color: red; font-size: 23px;" *ngIf="senhaValidate.invalid"> *</span>
@@ -52,6 +52,32 @@
 		</div>
 	</div>
 
+  <div class="card text-center">
+    <div class="card-header">
+      Telefone Contato
+    </div>
+    <div class="card-body" style="padding-left: 1px;">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <input type="text" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+          <button class="btn btn-primary">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let fone of usuario.telefones">
+        <td>{{fone.id}}</td>
+        <td>{{fone.numero}}</td>
+        <td><button class="btn btn-danger" (click)="deletarTelefone(fone.id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
 	<div class="form-row">
 		<div class="form-group col-md-6">
 			<button type="button" class="btn btn-primary"
@@ -62,7 +88,7 @@
 			[disabled]="formValidate.invalid"
 			(click)="salvarUsario()">Salvar</button>
 
-			<button type="button" class="btn btn-primary" style="margin-left: 10px;" 
+			<button type="button" class="btn btn-primary" style="margin-left: 10px;"
 			[routerLink]="['/usuarioList']" routerLinkActive="router-link-active" >Voltar</button>
 		</div>
 	</div>
