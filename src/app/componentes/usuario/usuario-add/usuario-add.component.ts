@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Telefone } from 'src/app/model/telefone';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
@@ -11,6 +12,7 @@ import { UsuarioService } from 'src/app/service/usuario.service';
 export class UsuarioAddComponent implements OnInit {
 
   usuario = new Usuario();
+  telefone = new Telefone();
 
   constructor(private routeActive: ActivatedRoute,
     private userService: UsuarioService) { }
@@ -42,18 +44,33 @@ export class UsuarioAddComponent implements OnInit {
     }
   }
 
-  deletarTelefone(id) {
+  deletarTelefone(id, i) {
+    if (id == null) {
+      this.usuario.telefones.splice(i, 1);
+      return;
+    }
+
     if (id != null && confirm("Deseja remover?")) {
       this.userService.removerTelefone(id).subscribe(data => {
-        const index = this.usuario.telefones.indexOf(id); /*identifica posição da lista do telefone removido*/
-        this.usuario.telefones.splice(index , 1); /*remove o telefone da lista*/
+        this.usuario.telefones.splice(i, 1); /*remove o telefone da lista*/
         console.info("Telefone removido = " + data);
       });
     }
   }
 
+  addFone() {
+    //Caso a lista não estiver instanciada, instancia-se a lista.
+    if (this.usuario.telefones === undefined) {
+      this.usuario.telefones = new Array<Telefone>();
+    }
+
+    this.usuario.telefones.push(this.telefone);
+    this.telefone = new Telefone();
+  }
+
   novo (){
     this.usuario = new Usuario();
+    this.telefone = new Telefone();
   }
 
 }
