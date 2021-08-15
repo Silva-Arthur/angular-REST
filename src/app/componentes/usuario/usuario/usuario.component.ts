@@ -10,9 +10,10 @@ import { Usuario } from 'src/app/model/usuario';
 })
 export class UsuarioComponent implements OnInit {
 
-  usuarios: Observable<Usuario[]>;
+  usuarios: Array<Usuario[]>;
   nome: String;
   p: Number;
+  total: Number;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -22,24 +23,50 @@ export class UsuarioComponent implements OnInit {
 
   carregarUsuarioList() {
     this.usuarioService.getUsuarioList().subscribe(data => {
-      this.usuarios = data;
+      this.usuarios = data.content;
+      this.total = data.totalElements;
     });
   }
 
-  deleteUsuario(id: Number) {
+  deleteUsuario(id: Number, index) {
 
     if (confirm('Deseja mesmo remover ?')) {
       this.usuarioService.deletarUsuario(id).subscribe(data => {
-        console.log("Retorno do metodo delete: " + data);
-        this.carregarUsuarioList();
+        this.usuarios.splice(index, 1); /*remover da tela*/
       });
+
     }
 
   }
 
   consultarUser() {
-    this.usuarioService.consultarUser(this.nome).subscribe(data => {
-      this.usuarios = data;
-    });
+
+    if (this.nome === '') {
+      this.carregarUsuarioList();
+    } else {
+      this.usuarioService.consultarUser(this.nome).subscribe(data => {
+        this.usuarios = data.content;
+        this.total = data.totalElements;
+      });
+    }
+
   }
+
+  carregarPagina(pagina) {
+    console.info("Pagina -> " + pagina);
+
+    if (this.nome !== '') {
+      this.usuarioService.consultarUserPage(this.nome, (pagina - 1)).subscribe(data => {
+        this.usuarios = data.content;
+        this.total = data.totalElements;
+      });
+    } else {
+      this.usuarioService.getUsuarioListPage(pagina - 1).subscribe(data => {
+        this.usuarios = data.content;
+        this.total = data.totalElements;
+      });
+    }
+
+  }
+
 }
