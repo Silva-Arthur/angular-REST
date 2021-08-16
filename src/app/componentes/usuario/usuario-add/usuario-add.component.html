@@ -46,6 +46,7 @@
 			<label for="cpf">CPF</label>
 			<span style="color: red; font-size: 23px;" *ngIf="cpfValidate.invalid"> *</span>
 			<input type="text" class="form-control" id="cpf" name="cpf"
+      [brmasker]="{person: true}"
 			#cpfValidate="ngModel"
 			[(ngModel)]="usuario.cpf"
 			 required="true" autocomplete="false">
@@ -59,7 +60,7 @@
     <div class="card-body" style="padding-left: 1px;">
       <div class="form-row">
         <div class="form-group col-md-3">
-          <input type="text" class="form-control" [(ngModel)]="telefone.numero" id="numero" name="numero">
+          <input type="text" class="form-control" [(ngModel)]="telefone.numero" id="numero" name="numero" mask="(00) 00000-0000">
         </div>
         <div class="form-group col-md-2">
           <button class="btn btn-primary" (click)="addFone()">Adicionar</button>
