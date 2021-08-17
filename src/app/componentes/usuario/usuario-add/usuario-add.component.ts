@@ -1,13 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Telefone } from 'src/app/model/telefone';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
+@Injectable()
+export class FormataData extends NgbDateParserFormatter {
+
+  readonly DELIMITER = '/';
+
+  parse(value: string): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        year: parseInt(date[2], 10)
+      };
+    }
+
+    return null;
+  }
+
+  format(date: NgbDateStruct ): string | null{
+    return date ? this.validarZero(date.day) + this.DELIMITER + this.validarZero(date.month) + this.DELIMITER + date.year : '';
+  }
+
+  validarZero(valor) : string {
+    if (valor.toString !== '' && parseInt(valor) <= 9) {
+      return '0' + valor;
+    }
+    return valor;
+  }
+}
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './usuario-add.component.html',
-  styleUrls: ['./usuario-add.component.css']
+  styleUrls: ['./usuario-add.component.css'],
+  providers: [{provide: NgbDateParserFormatter, useClass: FormataData}]
 })
 export class UsuarioAddComponent implements OnInit {
 
@@ -29,6 +62,8 @@ export class UsuarioAddComponent implements OnInit {
   }
 
   salvarUsario() {
+
+    console.log(this.usuario.dataNascimento);
     if (this.usuario.id != null && this.usuario.id.toString().trim != null) {
       /*Atualiando ou editando*/
       this.userService.updateUsuario(this.usuario).subscribe(data => {

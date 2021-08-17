@@ -15,6 +15,7 @@ import { GuardiaoGuard } from './service/guardiao.guard';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BrMaskerModule } from 'br-mask';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 export const appRouters: Routes = [
@@ -44,7 +45,8 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     HttpInterceptorModule,
     NgxMaskModule.forRoot({dropSpecialCharacters: true}),
     NgxPaginationModule,
-    BrMaskerModule
+    BrMaskerModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
