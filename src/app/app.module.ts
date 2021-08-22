@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BrMaskerModule } from 'br-mask';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 export const appRouters: Routes = [
@@ -46,7 +47,8 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     NgxMaskModule.forRoot({dropSpecialCharacters: true}),
     NgxPaginationModule,
     BrMaskerModule,
-    NgbModule
+    NgbModule,
+    NgxCurrencyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

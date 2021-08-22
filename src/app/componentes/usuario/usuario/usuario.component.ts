@@ -1,3 +1,4 @@
+import { Profissao } from './../../../model/profissao';
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { Observable } from 'rxjs';
@@ -27,6 +28,7 @@ export class UsuarioComponent implements OnInit {
       this.total = data.totalElements;
     });
   }
+
 
   deleteUsuario(id: Number, index) {
 
