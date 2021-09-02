@@ -1,3 +1,4 @@
+import { Usuario } from './../model/usuario';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppConstants } from '../app-constants';
@@ -16,7 +17,7 @@ export class LoginServiceService {
     return this.http.post(AppConstants.baseLogin, JSON.stringify(usuario)).subscribe(data => {
       /*Retorno HTTP*/
 
-      // Pegando só o token
+      // Pegando sï¿½ o token
       var token = JSON.parse(JSON.stringify(data)).Authorization.split(' ')[1];
 
       localStorage.setItem("token", token);
@@ -32,4 +33,22 @@ export class LoginServiceService {
       }
     );
   }
+
+  recuperar(login) {
+
+    let user = new Usuario();
+
+    user.login = login;
+
+    return this.http.post(AppConstants.getBaseUrlPath + 'recuperar/', user).subscribe(data => {
+      /*Retorno HTTP*/
+      alert(JSON.parse(JSON.stringify(data)).error);
+    },
+      error => {
+        console.error("Erro ao recuperar login!");
+        alert('Erro ao recuperar login!');
+      }
+    );
+  }
+
 }
