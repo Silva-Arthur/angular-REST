@@ -1,3 +1,4 @@
+import { UserReport } from './../model/UserReport';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -58,5 +59,17 @@ export class UsuarioService {
 
   getProfissaoList() : Observable<any> {
     return this.http.get<any>(AppConstants.getBaseUrlPath + 'profissao/');
+  }
+
+  downloadPdfRelatorio() {
+    return this.http.get(AppConstants.baseUrl + 'relatorio', {responseType: 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    });
+  }
+
+  downloadPdfRelatorioParametro(userReport: UserReport) {
+    return this.http.post(AppConstants.baseUrl + 'relatorio/', userReport, {responseType: 'text'}).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    });
   }
 }

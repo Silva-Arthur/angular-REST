@@ -42,3 +42,7 @@ Para poder funcionar é necessario alterar o arquivo tsconfig.json e inserir o s
 
 ```
 
+## Charts
+
+npm install chart.js@2.9.3 --save
+npm install ng2-charts@2.2.3 --save

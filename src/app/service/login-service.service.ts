@@ -22,7 +22,7 @@ export class LoginServiceService {
 
       localStorage.setItem("token", token);
 
-      // console.info("token: " + localStorage.getItem("token"));
+      console.info("token: " + localStorage.getItem("token"));
 
       this.router.navigate(['home']);
 
