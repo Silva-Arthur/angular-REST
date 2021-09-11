@@ -68,7 +68,10 @@ export class UsuarioComponent implements OnInit {
         this.total = data.totalElements;
       });
     }
+  }
 
+  imprimeRelatorio() {
+    return this.usuarioService.downloadPdfRelatorio();
   }
 
 }
