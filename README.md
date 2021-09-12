@@ -46,3 +46,9 @@ Para poder funcionar é necessario alterar o arquivo tsconfig.json e inserir o s
 
 npm install chart.js@2.9.3 --save
 npm install ng2-charts@2.2.3 --save
+
+## Gerar pasta dist para upload no servidor
+
+ng build --base-href=NomeDaPastaNoServidor
+
+deve ser alterado o arquivo do app-constants.ts para indicar o servidor do back-end
